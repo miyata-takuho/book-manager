@@ -1,0 +1,9 @@
+<h1>Book</h1>
+
+<h3>書籍名</h3>
+<%#= form_tag({controller: "book", action: "create" }, {method: "get"}) do %>
+<%= text_field :title, class: "book_title" %><br>
+<h3>感想</h3>
+<%= text_field :title, class: "book_description" %>
+<%# end %>
+<%= submit_tag('登録') %>
