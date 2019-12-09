@@ -33,7 +33,7 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.1]
       t.datetime :locked_at
 
 
-      Uncomment below if timestamps were not included in your original model.
+      #Uncomment below if timestamps were not included in your original model.
       t.timestamps null: false
     end
 
