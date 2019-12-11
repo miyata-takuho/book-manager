@@ -1,0 +1,4 @@
+web: bundle exec rails server -p $PORT -b 0.0.0.0
+riot: node_modules/.bin/riot -w app/assets/riot app/assets/javascripts/riot
+delayed_job_1: bundle exec rake jobs:work
+clockwork: bundle exec clockwork clock.rb
