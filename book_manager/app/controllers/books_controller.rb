@@ -35,12 +35,6 @@ class BooksController < ApplicationController
     redirect_to("/books/index")
   end
 
- # def form_for
- #   @book = Book.new
- #   @book.save
- #   redirect_to("/books/index")
- # end
-
  private
 
  # Never trust parameters from the scary internet, only allow the white list through.
