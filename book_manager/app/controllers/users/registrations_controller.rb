@@ -3,6 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
    before_action :configure_sign_up_params, only: [:create]
    before_action :configure_account_update_params, only: [:update]
+   before_action :authenticate_user!
 
 
 
@@ -37,9 +38,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # in to be expired now. This is useful if the user wants to
   # cancel oauth signing in/up in the middle of the process,
   # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
+  def cancel
+    super
+  end
 
   def detail
      @user = User.find_by(id: params[:id])

@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!
   def show
     @book = Book.find_by(id: params[:id])
   end
@@ -8,7 +9,7 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new(title: params[:title], description: params[:description], user_id: params[:user_id])
+    @book = Book.new(title: params[:title], description: params[:description])
     @book.save
     redirect_to("/books/index")
   end
