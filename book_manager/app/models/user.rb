@@ -3,14 +3,23 @@ class User < ApplicationRecord
   validates :username, {presence: true}
   validates :email, {presence: true}
   validates :password, {presence: true}
-  attr_writer :login
+  attr_accessor :login
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, authentication_keys: [:login]
 
   def intialize
   end
 
-  
+
+    def login=(login)
+      @login = login
+    end
+
+
+   def login
+     @login || self.username || self.email
+   end
+
 end

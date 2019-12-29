@@ -9,7 +9,8 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new(title: params[:title], description: params[:description])
+
+    @book = current_user.books.new(title: params[:title], description: params[:description])
     @book.save
     redirect_to("/books/index")
   end
@@ -48,7 +49,7 @@ class BooksController < ApplicationController
 
  def books_params
 
-params.require(:books).permit(:id, :title, :description)
+params.require(:books).permit(:id, :title, :description, :user_id)
 
  end
 
