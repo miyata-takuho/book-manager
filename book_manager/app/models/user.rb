@@ -12,14 +12,11 @@ class User < ApplicationRecord
   def intialize
   end
 
+  def login=(login)
+    @login = login
+  end
 
-    def login=(login)
-      @login = login
-    end
-
-
-   def login
-     @login || self.name || self.email
-   end
-
+  def login
+    @login || self.name || self.email
+  end
 end

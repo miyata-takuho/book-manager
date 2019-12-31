@@ -4,8 +4,6 @@ Rails.application.routes.draw do
     :sessions => 'users/sessions'
   }
 
-
-
   devise_scope :user do
     root 'users/registrations#new'
     get "signup", :to => "users/registrations#new"
@@ -16,10 +14,8 @@ Rails.application.routes.draw do
     get "/users/sign_out", :to => "users/sessions#destroy"
     get "user/:id", :to => "users/registrations#detail"
   end
-resources :users
 
-  # root 'books#new'
-
+  resources :users
 
   get 'user/user'
   get "books/index" => "books#index"
@@ -29,15 +25,7 @@ resources :users
   get "books/:id/edit" => "books#edit"
   post "books/:id/update" => "books#update"
   post "books/:id/destroy" => "books#destroy"
-# get 'book/new/:id', to: 'books#new', as: :books_new
 
-resources :books
-
-
-
-
-
-
-
+  resources :books
 
 end
