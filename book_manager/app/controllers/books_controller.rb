@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!
   def show
-    @book = Book.find_by(id: params[:id])
+    @books = Book.find_by(id: params[:id])
   end
 
   def index
@@ -9,37 +9,38 @@ class BooksController < ApplicationController
   end
 
   def create
-
-    @book = current_user.books.new(title: params[:title], description: params[:description])
-    @book.save
-    redirect_to("/books/index")
+    @books = current_user.books.new(books_params)
+    @books.save
+    if @books.save
+      redirect_to("/books/index", notice: "Book was successfully created!")
+    end
   end
 
   def update
-    @book = Book.find_by(id: params[:id])
-    @book.title = params[:title]
-    @book.description = params[:description]
-    @book.save
+    @books = Book.find_by(id: params[:id])
+    @books.title = params[:title]
+    @books.description = params[:description]
+    @books.save
     redirect_to("/books/index")
   end
 
   def new
-    @book = Book.new(id: params[:id])
+    @books = Book.new
   end
 
   def edit
-    @book = Book.find_by(id: params[:id])
+    @books = Book.find_by(id: params[:id])
   end
 
   def destroy
-    @book= Book.find_by(id: params[:id])
-    @book.destroy
+    @books= Book.find_by(id: params[:id])
+    @books.destroy
     redirect_to("/books/index")
   end
 
  # def form_for
- #   @book = Book.new
- #   @book.save
+ #   @books = current_user.books.new(title: params[:title], description: params[:description])
+ #   @books.save
  #   redirect_to("/books/index")
  # end
 
@@ -48,8 +49,7 @@ class BooksController < ApplicationController
  # Never trust parameters from the scary internet, only allow the white list through.
 
  def books_params
-
-params.require(:books).permit(:id, :title, :description, :user_id, :username)
+params.permit(:id, :title, :description, :user_id, :username, :name)
 
  end
 

@@ -8,8 +8,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'd4a628da2ec369223030e5b8bddc1afb2abbb16b23d91fbc4543fdfb61585d52e5bff953e47e529da24728adfaa675dd3d63e2ecf4d29242184fcc1285d9aee1'
-
+   config.secret_key = Rails.application.secrets.secret_key_base
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -52,12 +51,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [:email, :username]
+  config.case_insensitive_keys = [:email, :name]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [:email, :username]
+  config.strip_whitespace_keys = [:email, :name]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -152,7 +151,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+   config.remember_for = 2.weeks
 
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
@@ -208,8 +207,8 @@ Devise.setup do |config|
   #
   # Defines which key will be used when recovering the password for an account
    config.reset_password_keys = [:email]
-   config.reset_password_keys = [ :username ]
-   config.confirmation_keys = [ :username ]
+   config.reset_password_keys = [ :name ]
+   config.confirmation_keys = [ :name ]
 
   # Time interval you can reset your password with a reset password key.
   # Don't put a too small interval or your users won't have the time to

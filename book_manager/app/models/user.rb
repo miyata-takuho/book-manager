@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :books
-  validates :username, {presence: true}
+  validates :name, {presence: true}
   validates :email, {presence: true}
   validates :password, {presence: true}
   attr_accessor :login
@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
 
    def login
-     @login || self.username || self.email
+     @login || self.name || self.email
    end
 
 end
