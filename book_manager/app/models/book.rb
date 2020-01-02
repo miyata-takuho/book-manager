@@ -1,9 +1,6 @@
 class Book < ApplicationRecord
-  belongs_to :user
-   attr_writer :title, :description
-  # validates :user_id, {presence: true}
+  belongs_to :user, optional: true
+      # attr_accessor :title, :description
+   validates :title, {presence: true}
 
-  def new
-    @book = Book.new(books_params)
-  end
 end

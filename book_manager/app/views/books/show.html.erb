@@ -4,7 +4,7 @@
 <h4>感想</h4>
   <%= @books.description %>
 <h4>登録ユーザー</h4>
-  <%= link_to(@books.user.name, "/user/#{@books.user.id}") %>
+  <%= link_to(@books.user.name, "/users/#{@books.user_id}") %>
 <div class="post-menus">
   <%= link_to("編集", "/books/#{@books.id}/edit") %>
   <%= link_to("削除", "/books/#{@books.id}/destroy", {method: "post"}) %>

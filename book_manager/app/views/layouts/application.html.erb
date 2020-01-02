@@ -16,13 +16,13 @@
         </li>
         <% if current_user %>
         <li>
-          <%= link_to("書籍一覧", "/books/index") %>
+          <%= link_to("書籍一覧", "/books") %>
         </li>
         <li>
           <%= link_to("書籍追加", "/books/new") %>
         </li>
         <li>
-          <%= link_to("プロフィール", "/user/#{current_user.id}") %>
+          <%= link_to("プロフィール", "/users/#{current_user.id}") %>
         </li>
         <% end %>
       </ul>
