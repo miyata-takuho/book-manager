@@ -19,5 +19,6 @@ Rails.application.routes.draw do
 
   get "books/index", :to => "books#index"
   post "books/:id/destroy", :to => "books#destroy"
+  post "books/:id/update", :to => "books#update"
   resources :books
 end
