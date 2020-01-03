@@ -1,9 +1,29 @@
 <h1>登録書籍</h1>
   <div class="main posts-index">
     <div class="container">
+      <div class="posts-index-item">
+      <thead>
+        <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>User</th>
+      </tr>
+      </thead>
+      </div>
+
       <% @books.each do |book| %>
         <div class="posts-index-item">
+        <tbody>
+          <td>
           <%= link_to(book.title, "books/#{book.id}") %>
+          </td>
+          <td>
+          <%= link_to(book.description, "books/#{book.id}") %>
+          </td>
+          <td>
+          <%= link_to(book.user.name, "users/#{book.user_id}") %>
+          </td>
+          </tbody>
         </div>
       <% end %>
     </div>
