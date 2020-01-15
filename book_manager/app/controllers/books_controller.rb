@@ -1,54 +1,61 @@
 class BooksController < ApplicationController
-  def show
-    @book = Book.find_by(id: params[:id])
-  end
+  before_action :authenticate_user!
+  before_action :books_params, only: [:create]
 
   def index
     @books = Book.all
-  end
-
-  def create
-    @book = Book.new(title: params[:title], description: params[:description])
-    @book.save
-    redirect_to("/books/index")
-  end
-
-  def update
-    @book = Book.find_by(id: params[:id])
-    @book.title = params[:title]
-    @book.description = params[:description]
-    @book.save
-    redirect_to("/books/index")
+    @q = Book.ransack(params[:q])
+    @books = @q.result(distinct: true)
   end
 
   def new
-    @book = Book.new(id: params[:id])
+    @books = Book.new
   end
 
+  def create
+    @books = Book.new(books_params)
+    @books.save
+    if @books.save
+      render "books/show"
+    else
+      render "books/new"
+    end
+  end
+
+  def show
+    @books = Book.find_by(id: params[:id])
+  end
+
+  def update
+    @books = Book.find_by(id: params[:id])
+    @books.title = params[:title]
+    @books.description = params[:description]
+    @books.save
+    redirect_to("/books")
+  end
+
+
   def edit
-    @book = Book.find_by(id: params[:id])
+    @books = Book.find_by(id: params[:id])
   end
 
   def destroy
-    @book= Book.find_by(id: params[:id])
-    @book.destroy
-    redirect_to("/books/index")
+    @books= Book.find_by(id: params[:id])
+    @books.destroy
+    redirect_to("/books")
   end
 
  # def form_for
- #   @book = Book.new
- #   @book.save
+ #   @books = current_user.books.new(title: params[:title], description: params[:description])
+ #   @books.save
  #   redirect_to("/books/index")
  # end
 
- private
 
+private
  # Never trust parameters from the scary internet, only allow the white list through.
-
  def books_params
-
-params.require(:books).permit(:id, :title, :description)
-
+   params.require(:book).permit(:title, :description, :user_id)
  end
 
 end

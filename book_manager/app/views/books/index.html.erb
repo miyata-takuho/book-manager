@@ -1,10 +1,36 @@
 <h1>登録書籍</h1>
   <div class="main posts-index">
     <div class="container">
+      <%= search_form_for @q do |f| %>
+      <%= f.label :title %><br>
+      <%= f.search_field :title_cont %>
+      <%= f.submit %>
+      <% end %>
+      <br>
+      <table class="posts-index-item">
+      <thead>
+        <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>User</th>
+      </tr>
+      </thead>
+      </table>
+
       <% @books.each do |book| %>
-        <div class="posts-index-item">
-          <%= link_to(book.title, "#{book.id}") %>
-        </div>
+        <table class="posts-index-item">
+        <tbody>
+          <td width=33%>
+          <%= link_to(book.title, "books/#{book.id}") %>
+          </td>
+          <td width=33%>
+          <%= link_to(book.description, "books/#{book.id}") %>
+          </td>
+          <td width=33%>
+          <%= link_to(book.user.name, "users/#{book.user_id}") %>
+          </td>
+          </tbody>
+        </table>
       <% end %>
     </div>
   </div>

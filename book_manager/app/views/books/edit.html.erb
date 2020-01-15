@@ -1,11 +1,13 @@
 <div class='main posts-new'>
   <div class='container'>
     <h1 class='form-heading'>編集する</h1>
-    <%= form_tag("/books/#{@book.id}/update") do %>
+    <%= form_tag("/books/#{@books.id}/update") do %>
       <div class='form'>
         <div class='form-body'>
-          <textarea name='title'><%= @book.title %></textarea>
-          <textarea name='descriotion'><%= @book.description %></textarea>
+          <h4>title</h4>
+          <textarea name='title'><%= @books.title %></textarea>
+          <h4>description</h4><br>
+          <textarea name='descriotion'><%= @books.description %></textarea>
           <input type='submit' value='保存''>
         </div>
       </div>

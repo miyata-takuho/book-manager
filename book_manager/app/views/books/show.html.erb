@@ -1,9 +1,25 @@
 <h1>登録書籍</h1>
-<h4>タイトル</h4>
-  <%= @book.title %>
-<h4>感想</h4>
-  <%= @book.description %>
+<div class="main posts-index">
+  <div class="container">
+    <table class="posts-index-item">
+      <td>Title</td>
+      <td>
+  <%= @books.title %>
+  </td>
+</table>
+<table class="posts-index-item">
+  <td>感想</td>
+  <td>
+  <%= @books.description %>
+</td>
+</table>
+<table class="posts-index-item">
+  <td>登録ユーザー</td>
+  <td>
+  <%= link_to(@books.user.name, "/users/#{@books.user_id}") %>
+</td>
+</table>
 <div class="post-menus">
-  <%= link_to("編集", "/books/#{@book.id}/edit") %>
-  <%= link_to("削除", "/books/#{@book.id}/destroy", {method: "post"}) %>
+  <%= link_to("編集", "/books/#{@books.id}/edit") %>
+  <%= link_to("削除", "/books/#{@books.id}/destroy", {method: "post"}) %>
 </div>

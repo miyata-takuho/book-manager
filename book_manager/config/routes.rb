@@ -1,16 +1,24 @@
 Rails.application.routes.draw do
-  root 'books#new'
+  devise_for :users, :controllers => {
+    :registrations => 'users/registrations',
+    :sessions => 'users/sessions'
+  }
 
-  get 'user/user'
-  get "books/index" => "books#index"
-  get "books/new" => "books#new"
-  get "books/:id" => "books#show"
-  post "books/create" => "books#create"
-  get "books/:id/edit" => "books#edit"
-  post "books/:id/update" => "books#update"
-  post "books/:id/destroy" => "books#destroy"
-# get 'book/new/:id', to: 'books#new', as: :books_new
+   devise_scope :user do
 
+    root 'users/registrations#new'
+    get "signup", :to => "users/registrations#new"
+    get "login", :to => "users/sessions#new"
+    post "signup", :to => "users/registrations#create"
+    post 'login' => 'users/sessions#create'
+    get "logout", :to => "users/sessions#destroy"
+    get "/users/sign_out", :to => "users/sessions#destroy"
+    get "users/:id", :to => "users/registrations#detail"
+    resources :users
+   end
+
+  get "books/index", :to => "books#index"
+  post "books/:id/destroy", :to => "books#destroy"
+  post "books/:id/update", :to => "books#update"
   resources :books
-
 end
