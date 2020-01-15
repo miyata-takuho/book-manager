@@ -20,6 +20,7 @@
 </td>
 </table>
 <div class="post-menus">
+  <p>Review : <%= rating_for @books, 'review' %></p>
   <%= link_to("編集", "/books/#{@books.id}/edit") %>
   <%= link_to("削除", "/books/#{@books.id}/destroy", {method: "post"}) %>
 </div>
