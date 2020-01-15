@@ -1,20 +1,19 @@
 <h1>Book-manager</h1>
 
-<%#= form_tag('/books/create') do %>
-  <!-- <p>タイトル</p>
+<%= form_tag('/books/create') do %>
+  <p>タイトル</p>
   <textarea name="title"></textarea>
   <br>
   <p>感想</p>
   <textarea name="description"></textarea>
-  <input type="submit"> -->
-<%# end %>
-<%# (resource, as: resource_name, url: registration_path(resource_name)) %>
-<%= form_for :book, url: books_path do |f| %>
-  <%= f.label :title %><br>
-  <%= f.text_field :title %><br><br>
-  <%= f.label :description %><br>
-  <%= f.text_area :description %>
-<br>
-  <%= f.hidden_field :user_id, value: current_user.id%>
-  <%= f.submit "submit", class: "btn btn-primary" %>
+  <input type="submit">
 <% end %>
+
+<%#= form_for(@book) do |f| %>
+  <%#= f.label :title %>
+  <%#= f.text_field :title %><br><br>
+  <%#= f.label :description %>
+  <%#= f.text_field :description %>
+
+  <%#= f.submit "register", class: "btn btn-primary" %>
+<%# end %>
