@@ -1,16 +1,16 @@
-<h1>Edit</h1>
-<div class="main posts-index">
-  <div class="container">
-    <h3 class='form-heading'>Edit</h3>
-      <%= form_for :book, url: "/books/#{@books.id}/update" do |f| %>
-        <%= f.label :title %><br>
-        <%= f.text_field :title, value: @books.title %><br>
-        <%= f.label :description %><br>
-        <%= f.text_area :description, value: @books.description%><br>
-        <%= f.label :rating %><br>
-        <%= f.select :rating, [['very bad', 1], ['bad', 2], ['ok', 3], ['good', 4], ['excelent', 5]], {class: "form-control"} %><br><br>
-        <%= f.hidden_field :user_id, value: current_user.id%>
-        <%= f.submit "Update", class: "btn btn-primary" %>
-      <% end %>
+<div class='main posts-new'>
+  <div class='container'>
+    <h1 class='form-heading'>編集する</h1>
+    <%= form_tag("/books/#{@books.id}/update") do %>
+      <div class='form'>
+        <div class='form-body'>
+          <h4>title</h4>
+          <textarea name='title'><%= @books.title %></textarea>
+          <h4>description</h4><br>
+          <textarea name='descriotion'><%= @books.description %></textarea>
+          <input type='submit' value='保存''>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
