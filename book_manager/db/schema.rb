@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200115233705) do
+ActiveRecord::Schema.define(version: 20200116234822) do
 
   create_table "average_caches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "rater_id"
@@ -32,18 +32,9 @@ ActiveRecord::Schema.define(version: 20200115233705) do
     t.string "username"
     t.string "name"
     t.bigint "name_id"
-    t.float "review", limit: 24
+    t.integer "rating"
     t.index ["name_id"], name: "index_books_on_name_id"
     t.index ["user_id"], name: "fk_rails_bc582ddd02"
-  end
-
-  create_table "overall_averages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "rateable_type"
-    t.bigint "rateable_id"
-    t.float "overall_avg", limit: 24, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["rateable_type", "rateable_id"], name: "index_overall_averages_on_rateable_type_and_rateable_id"
   end
 
   create_table "rating_caches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

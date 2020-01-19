@@ -1,10 +1,10 @@
-<h1>登録書籍</h1>
+<h1>Book List</h1>
   <div class="main posts-index">
     <div class="container">
       <%= search_form_for @q do |f| %>
       <%= f.label :title %><br>
       <%= f.search_field :title_cont %>
-      <%= f.submit %>
+      <%= f.submit "search", class: "btn btn-primary" %>
       <% end %>
       <br>
       <table class="posts-index-item">
@@ -13,6 +13,7 @@
       <th>Title</th>
       <th>Description</th>
       <th>User</th>
+      <th>Review</th>
       </tr>
       </thead>
       </table>
@@ -20,14 +21,22 @@
       <% @books.each do |book| %>
         <table class="posts-index-item">
         <tbody>
-          <td width=33%>
+          <td width=25%>
           <%= link_to(book.title, "books/#{book.id}") %>
           </td>
-          <td width=33%>
+          <td width=25%>
           <%= link_to(book.description, "books/#{book.id}") %>
           </td>
-          <td width=33%>
+          <td width=25%>
           <%= link_to(book.user.name, "users/#{book.user_id}") %>
+          </td>
+          <td width=25%>
+            <% book.rating.to_i.times do  %>
+            <span class="glyphicon glyphicon-star"></span>
+            <% end %>
+            <% book.blank_stars.to_i.times do  %>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            <% end %>
           </td>
           </tbody>
         </table>
