@@ -30,7 +30,8 @@ class BooksController < ApplicationController
     @books = Book.find_by(id: params[:id])
     @books.title = params[:title]
     @books.description = params[:description]
-    @books.save
+    @books.rating = params[:rating]
+    @books.update(books_params)
     redirect_to("/books")
   end
 
@@ -45,17 +46,10 @@ class BooksController < ApplicationController
     redirect_to("/books")
   end
 
- # def form_for
- #   @books = current_user.books.new(title: params[:title], description: params[:description])
- #   @books.save
- #   redirect_to("/books/index")
- # end
-
-
 private
  # Never trust parameters from the scary internet, only allow the white list through.
  def books_params
-   params.require(:book).permit(:title, :description, :user_id)
+   params.require(:book).permit(:title, :description, :user_id, :rating)
  end
 
 end
