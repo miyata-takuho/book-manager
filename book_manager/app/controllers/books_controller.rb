@@ -25,7 +25,7 @@ class BooksController < ApplicationController
   def show
     @books = Book.find_by(id: params[:id])
   end
-
+ 
   def update
     @books = Book.find_by(id: params[:id])
     @books.title = params[:title]
