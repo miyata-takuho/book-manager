@@ -1,3 +1,5 @@
+
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -10,9 +12,12 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+ // Custom bootstrap variables must be set or imported *before* bootstrap.
  */
+// エラーの場合はサーバー再起動してください
+ @import 'bootstrap/glyphicons';
+ @import "bootstrap";
+
  /* posts/index ================================ */
  * {
   box-sizing: border-box;
