@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200116234822) do
+ActiveRecord::Schema.define(version: 20200122225120) do
 
   create_table "average_caches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "rater_id"
@@ -71,10 +71,13 @@ ActiveRecord::Schema.define(version: 20200116234822) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.bigint "book_id"
+    t.index ["book_id"], name: "index_users_on_book_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "books", "users"
+  add_foreign_key "users", "books"
 end
