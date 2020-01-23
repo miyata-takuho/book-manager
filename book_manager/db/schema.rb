@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200122225120) do
+ActiveRecord::Schema.define(version: 20200123232036) do
 
   create_table "average_caches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "rater_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20200122225120) do
     t.string "name"
     t.bigint "name_id"
     t.integer "rating"
+    t.integer "status", default: 0
     t.index ["name_id"], name: "index_books_on_name_id"
     t.index ["user_id"], name: "fk_rails_bc582ddd02"
   end
@@ -46,6 +47,16 @@ ActiveRecord::Schema.define(version: 20200122225120) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cacheable_type", "cacheable_id"], name: "index_rating_caches_on_cacheable_type_and_cacheable_id"
+  end
+
+  create_table "rental_logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "status", default: 0
+    t.bigint "book_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_rental_logs_on_book_id"
+    t.index ["user_id"], name: "index_rental_logs_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -72,6 +83,7 @@ ActiveRecord::Schema.define(version: 20200122225120) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.bigint "book_id"
+    t.integer "status", default: 0
     t.index ["book_id"], name: "index_users_on_book_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -79,5 +91,7 @@ ActiveRecord::Schema.define(version: 20200122225120) do
   end
 
   add_foreign_key "books", "users"
+  add_foreign_key "rental_logs", "books"
+  add_foreign_key "rental_logs", "users"
   add_foreign_key "users", "books"
 end

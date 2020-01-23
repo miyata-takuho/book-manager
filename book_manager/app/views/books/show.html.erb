@@ -24,8 +24,13 @@
         <% end %>
       </td>
     </table>
+    <table class="posts-index-item">
+      <td width=50%>Rent</td>
+      <td width=50%><%= link_to("Rent button", "/users/#{@books.user_id}") %></td>
+    </table>
 
   <div class="post-menus">
+    <%= button_to "Rent", {controller: 'books', action: 'rental'}, {method: :get} %>
     <%= link_to("編集", "/books/#{@books.id}/edit") %>
     <%= link_to("削除", "/books/#{@books.id}/destroy", {method: "post"}) %>
   </div>

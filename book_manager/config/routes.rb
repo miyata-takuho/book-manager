@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :users
    end
 
+   get "books/rental", :to => "books#rental"
+
   get "books/index", :to => "books#index"
   post "books/:id/destroy", :to => "books#destroy"
   post "books/:id/update", :to => "books#update"

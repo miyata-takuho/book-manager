@@ -25,7 +25,7 @@ class BooksController < ApplicationController
   def show
     @books = Book.find_by(id: params[:id])
   end
- 
+
   def update
     @books = Book.find_by(id: params[:id])
     @books.title = params[:title]
@@ -44,6 +44,10 @@ class BooksController < ApplicationController
     @books= Book.find_by(id: params[:id])
     @books.destroy
     redirect_to("/books")
+  end
+
+  def rental
+    @books.update!(status: :borrowed)
   end
 
 private
