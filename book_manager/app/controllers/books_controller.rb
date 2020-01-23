@@ -47,7 +47,11 @@ class BooksController < ApplicationController
   end
 
   def rental
+    @books= Book.find_by(id: params[:id])
     @books.update!(status: :borrowed)
+    if @books.save
+      redirect_to("/books")
+    end
   end
 
 private

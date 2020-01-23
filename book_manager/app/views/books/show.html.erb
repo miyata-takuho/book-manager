@@ -30,7 +30,7 @@
     </table>
 
   <div class="post-menus">
-    <%= button_to "Rent", {controller: 'books', action: 'rental'}, {method: :get} %>
+    <%= button_to "Borrow", {controller: 'books', action: 'rental'}, {method: :post, params: {id: @books.id}} %>
     <%= link_to("編集", "/books/#{@books.id}/edit") %>
     <%= link_to("削除", "/books/#{@books.id}/destroy", {method: "post"}) %>
   </div>
