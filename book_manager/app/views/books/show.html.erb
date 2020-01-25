@@ -26,6 +26,9 @@
     </table>
 
   <div class="post-menus">
-    <%= link_to("編集", "/books/#{@books.id}/edit") %>
-    <%= link_to("削除", "/books/#{@books.id}/destroy", {method: "post"}) %>
+  <br>
+    <%= button_to "Borrow", {controller: 'books', action: 'rental'}, {method: :post, params: {id: @books.id}, class: "btn btn-primary"}%>
+    <br>
+    <%= link_to("Edit", "/books/#{@books.id}/edit", class: "btn btn-primary") %>
+    <%= link_to("Delete", "/books/#{@books.id}/destroy", {method: "post", class: "btn btn-primary"}) %>
   </div>
