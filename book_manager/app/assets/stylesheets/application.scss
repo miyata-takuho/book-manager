@@ -37,7 +37,7 @@ ul, li {
 
 a {
   text-decoration: none;
-  color: #2d3133;
+  color: #E6E6E6;
   font-size: 14px;
 }
 
@@ -58,7 +58,7 @@ form input[type="submit"] {
 /* 共通レイアウト ================================ */
 body {
   color: black;
-  background-color: #fff;
+  background-color: #E6E6E6;
   margin: 0;
   min-height: 1vh;
 }
@@ -86,10 +86,21 @@ header {
   position: absolute;
   z-index: 1;
   width: 100%;
+  background-color: #263844;
+  color: white;
+}
+
+.head-title {
+  color: white;
+}
+
+.header-title {
+  color: white;
+  display: inline-block;
 }
 
 .header-logo a{
-  color: black;
+  color: white;
   font-size: 22px;
 }
 
@@ -102,14 +113,14 @@ header {
   float: left;
   line-height: 64px;
   font-size: 13px;
-  color: black;
+  color: white;
   padding-left: 15px;
 }
 
 .header-menus a {
   float: left;
   font-size: 13px;
-  color: black;
+  color: white;
 }
 
 .header-menus .fa {
@@ -348,4 +359,52 @@ header {
 .posts-new textarea::-webkit-input-placeholder {
   font-size: 24px;
   opacity: 0.5;
+}
+
+
+/* signup page ================================ */
+.box {
+  padding: 20px 30px;
+  background-color: #344a57;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+  width: 60%;
+  margin: 100px auto;
+  text-align: center;
+}
+
+.field {
+  padding: 20px 0;
+}
+
+.user-title {
+  color: #E6E6E6;
+  margin: 15px auto;
+}
+
+.action {
+  padding: 10px 0;
+  margin: 30px auto;
+  width: 50%;
+}
+
+.text-field {
+  background-color: #E6E6E6;
+  width: 80%;
+  height: 50px;
+  padding: 0 15px;
+}
+
+.button {
+  color: #E6E6E6;
+}
+
+.link {
+  color: #E6E6E6;
+  margin: 10px 0 30px 0;
+}
+
+.label{
+  color: #E6E6E6;
+  margin: 0 5px;
 }
