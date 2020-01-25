@@ -49,6 +49,9 @@ class BooksController < ApplicationController
   def rental
     @books= Book.find_by(id: params[:id])
     @books.update!(status: :borrowed)
+    @books.user.update!(status: true, book_id: @books.id)
+    @rental_log = RentalLog.new(status: 1, book_id: @books.id, user_id: @books.user.id)
+    @rental_log.save
     if @books.save
       redirect_to("/books")
     end
