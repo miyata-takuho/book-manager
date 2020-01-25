@@ -8,9 +8,4 @@ class Book < ApplicationRecord
    def blank_stars
      5 - rating.to_i
    end
-
-   # def create_new_log
-   #   RentalLog.create(book_id: @books.id, user_id: @books.user.id)
-   # end
-
 end

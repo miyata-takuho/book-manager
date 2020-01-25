@@ -18,9 +18,8 @@ Rails.application.routes.draw do
    end
 
    post "books/rental", :to => "books#rental"
-
-  get "books/index", :to => "books#index"
-  post "books/:id/destroy", :to => "books#destroy"
-  post "books/:id/update", :to => "books#update"
-  resources :books
+   get "books/index", :to => "books#index"
+   post "books/:id/destroy", :to => "books#destroy"
+   post "books/:id/update", :to => "books#update"
+   resources :books
 end
