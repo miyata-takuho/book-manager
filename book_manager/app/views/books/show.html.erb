@@ -1,34 +1,32 @@
 <h1 class="head-title">Book List</h1>
-<div class="main posts-index">
-  <div class="container">
-    <table class="posts-index-item">
-      <td width=50%>Title</td>
-      <td width=50%><%= @books.title %></td>
-    </table>
-    <table class="posts-index-item">
-      <td width=50%>Description</td>
-      <td width=50%><%= @books.description %></td>
-    </table>
-    <table class="posts-index-item">
-      <td width=50%>User</td>
-      <td width=50%><%= link_to(@books.user.name, "/users/#{@books.user_id}") %></td>
-    </table>
-    <table class="posts-index-item">
-      <td width=50%>Review</td>
-      <td width=50%>
-        <% @books.rating.to_i.times do  %>
-          <span class="glyphicon glyphicon-star"></span>
-        <% end %>
-        <% @books.blank_stars.to_i.times do  %>
-          <span class="glyphicon glyphicon-star-empty"></span>
-        <% end %>
-      </td>
-    </table>
+<h3 class='page-title'><%= @books.title %></h3>
 
-  <div class="post-menus">
-  <br>
-    <%= button_to "Borrow", {controller: 'books', action: 'rental'}, {method: :post, params: {id: @books.id}, class: "btn btn-primary"}%>
-    <br>
+<div class="white-box">
+  <h3 class="show-title">Title</h3>
+  <p class="show-paragraph"><%= @books.title %></p>
+  <h3 class="show-title">Description</h3>
+  <p class="show-paragraph"><%= @books.description %></p>
+  <h3 class="show-title">User</h3>
+  <p class="show-paragraph"><%= link_to(@books.user.name, "/users/#{@books.user_id}") %></p>
+  <h3 class="show-title">Review</h3>
+
+  <div class="show-paragraph">
+    <% @books.rating.to_i.times do  %>
+      <span class="glyphicon glyphicon-star"></span>
+    <% end %>
+    <% @books.blank_stars.to_i.times do  %>
+      <span class="glyphicon glyphicon-star-empty"></span>
+    <% end %>
+  </div><br>
+
+  <div class="show-paragraph">
+    <%= button_to "Borrow", {controller: 'books', action: 'rental'}, {method: :post, params: {id: @books.id}, class: "btn btn-primary"}%><br>
+  </div>
+</div>
+
+<div class="white-box-container-link">
+  <% if current_user == @books.user %>
     <%= link_to("Edit", "/books/#{@books.id}/edit", class: "btn btn-primary") %>
     <%= link_to("Delete", "/books/#{@books.id}/destroy", {method: "post", class: "btn btn-primary"}) %>
-  </div>
+  <% end %>
+</div>
