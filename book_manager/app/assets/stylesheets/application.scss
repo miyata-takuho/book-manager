@@ -80,6 +80,12 @@ body {
   clear: both;
 }
 
+.page-title {
+  font-size: 60px;
+  text-align: center;
+  margin: 70px 0 0 0;
+}
+
 /* ヘッダー ================================ */
 header {
   height: 64px;
@@ -409,7 +415,7 @@ header {
   box-shadow: 0 2px 6px #c1ced7;
   width: 40%;
   height: 400px;
-  margin: 100px auto;
+  margin: 50px auto;
   text-align: left;
   border: 1px solid grey;
 }
