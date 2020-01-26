@@ -1,23 +1,17 @@
 <h1 class="head-title"> User detail</h1>
 <div class="white-box">
-<!-- <div class="main posts-index"> -->
-  <!-- <div class="container"> -->
-    <!-- <table class="posts-index-item"> -->
-    <div class="profile-picture-box">
-      <!-- picture -->
-      </div>
-      <div class="profile-name">
-       <%= @user.name %>
+  <div class="profile-picture-box">
+    <!-- picture -->
+  </div>
+  <div class="profile-name">
+    <%= @user.name %>
   </div>
   <div class="profile-email">
-  <%= @user.email %>
-</div>
-      <!-- </table> -->
-      <% if current_user == @user %>
-      <div class="btn btn-primary actions profile-logout">
-        <%= link_to("Logout", "/users/sign_out") %>
-        </div>
-      <% end %>
+    <%= @user.email %>
   </div>
-<!-- </div> -->
-<!-- </div> -->
+  <% if current_user == @user %>
+    <div class="btn btn-primary actions profile-logout">
+      <%= link_to("Logout", "/users/sign_out") %>
+    </div>
+  <% end %>
+</div>

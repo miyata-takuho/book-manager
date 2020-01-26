@@ -1,47 +1,44 @@
 <h1 class="head-title">Book List</h1>
-  <div class="main posts-index">
-    <div class="container">
+<div class="main posts-index">
+  <div class="container">
+    <table class="posts-index-item">
       <%= search_form_for @q do |f| %>
-      <%= f.label :title %><br>
-      <%= f.search_field :title_cont %>
-      <%= f.submit "search", class: "btn btn-primary" %>
+        <%= f.search_field :title_cont, class: "search-field", placeholder: "Book Title" %>
+        <%= f.submit "search", class: "btn btn-primary" %>
       <% end %>
-      <br>
-      <table class="posts-index-item">
-      <thead>
+      <thead class="posts-table-head">
         <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>User</th>
-      <th>Review</th>
-      </tr>
+          <th class="table-title" width=25%>Title</th>
+          <th class="table-title" width=30%>Description</th>
+          <th class="table-title" width=25%>User</th>
+          <th class="table-title" width=15%>Review</th>
+        </tr>
       </thead>
-      </table>
-
-      <% @books.each do |book| %>
-        <table class="posts-index-item">
+    </table>
+    <% @books.each do |book| %>
+      <table class="posts-index-item">
         <tbody>
-          <td width=25%>
-          <%= link_to(book.title, "books/#{book.id}") %>
+          <td class="table-data" width=25%>
+            <%= link_to(book.title, "books/#{book.id}") %>
           </td>
-          <td width=25%>
-          <%= link_to(book.description, "books/#{book.id}") %>
+          <td class="table-data" width=30%>
+            <%= link_to(book.description, "books/#{book.id}") %>
           </td>
-          <td width=25%>
-          <% if book.user.present? %>
-            <%= link_to(book.user.name, "users/#{book.user_id}") %>
-          <% end %>
-          </td>
-          <td width=25%>
-            <% book.rating.to_i.times do  %>
-            <span class="glyphicon glyphicon-star"></span>
-            <% end %>
-            <% book.blank_stars.to_i.times do  %>
-            <span class="glyphicon glyphicon-star-empty"></span>
+          <td class="table-data" width=25%>
+            <% if book.user.present? %>
+              <%= link_to(book.user.name, "users/#{book.user_id}") %>
             <% end %>
           </td>
-          </tbody>
-        </table>
-      <% end %>
-    </div>
+          <td class="table-data" width=15%>
+            <% book.rating.to_i.times do %>
+              <span class="glyphicon glyphicon-star"></span>
+            <% end %>
+            <% book.blank_stars.to_i.times do %>
+              <span class="glyphicon glyphicon-star-empty"></span>
+            <% end %>
+          </td>
+        </tbody>
+      </table>
+    <% end %>
   </div>
+</div>
