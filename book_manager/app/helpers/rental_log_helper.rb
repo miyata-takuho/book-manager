@@ -1,0 +1,2 @@
+module RentalLogHelper
+end

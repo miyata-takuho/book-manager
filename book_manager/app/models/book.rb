@@ -1,6 +1,6 @@
 class Book < ApplicationRecord
   belongs_to :user, optional: true
-  belongs_to :rental_logs, optional: true
+  has_many :rental_logs, dependent: :destroy
       # attr_accessor :title, :description
   validates :title, {presence: true}
   enum status: [ :not_borrowed, :borrowed ]
