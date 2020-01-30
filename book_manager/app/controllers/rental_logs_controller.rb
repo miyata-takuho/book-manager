@@ -1,4 +1,4 @@
-class RentalLogController < ApplicationController
+class RentalLogsController < ApplicationController
   before_action :authenticate_user!
   before_action :rental_logs_params, only: [:create]
 
@@ -21,6 +21,7 @@ class RentalLogController < ApplicationController
   end
 
   def show
+    @rental_log = RentalLog.find_by(id: params[:id])
   end
 
   def update
@@ -36,7 +37,7 @@ class RentalLogController < ApplicationController
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def rental_logs_params
-   params.require(:rental_logs).permit(:status, :book_id)
+   params.require(:rental_logs).permit(:status, :book_id, :user_id)
   end
 
 end
