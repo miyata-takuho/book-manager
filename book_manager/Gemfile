@@ -40,6 +40,8 @@ gem 'jquery-rails'
 
 gem 'bootstrap-glyphicons'
 
+gem 'seed-fu', '~> 2.3'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

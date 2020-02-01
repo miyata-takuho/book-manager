@@ -8,9 +8,11 @@
       <% end %>
       <thead class="posts-table-head">
         <tr>
-          <th class="table-title" width=25%>Title</th>
-          <th class="table-title" width=30%>Description</th>
-          <th class="table-title" width=25%>User</th>
+          <th class="table-title" width=20%>Title</th>
+          <th class="table-title" width=13%>Borrowed at</th>
+          <th class="table-title" width=13%>Due Date</th>
+          <th class="table-title" width=13%>Returned at</th>
+          <th class="table-title" width=20%>Borrowed by</th>
           <th class="table-title" width=15%>Review</th>
         </tr>
       </thead>
@@ -18,15 +20,21 @@
     <% @books.each do |book| %>
       <table class="posts-index-item">
         <tbody>
-          <td class="table-data" width=25%>
+          <td class="table-data" width=20%>
             <%= link_to(book.title, "books/#{book.id}") %>
           </td>
-          <td class="table-data" width=30%>
-            <%= link_to(book.description, "books/#{book.id}") %>
+          <td class="table-data" width=13%>
+              <%= book.last_log_borrowed_date %>
           </td>
-          <td class="table-data" width=25%>
-            <% if book.user.present? %>
-              <%= link_to(book.user.name, "users/#{book.user_id}") %>
+          <td class="table-data" width=13%>
+              <%= book.last_log_due_date %>
+            </td>
+          <td class="table-data" width=13%>
+              <%= book.last_log_returned_date %>
+            </td>
+          <td class="table-data" width=20%>
+            <% if book.borrowed_by.present? %>
+              <%= link_to(book.borrowed_by, "users/#{book.user_id}") %>
             <% end %>
           </td>
           <td class="table-data" width=15%>

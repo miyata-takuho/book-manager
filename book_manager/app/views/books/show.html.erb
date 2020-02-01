@@ -1,32 +1,52 @@
 <h1 class="head-title">Book List</h1>
-<h3 class='page-title'><%= @books.title %></h3>
+<h3 class='page-title'><%= @book.title %></h3>
 
 <div class="white-box">
-  <h3 class="show-title">Title</h3>
-  <p class="show-paragraph"><%= @books.title %></p>
-  <h3 class="show-title">Description</h3>
-  <p class="show-paragraph"><%= @books.description %></p>
-  <h3 class="show-title">User</h3>
-  <p class="show-paragraph"><%= link_to(@books.user.name, "/users/#{@books.user_id}") %></p>
-  <h3 class="show-title">Review</h3>
+  <div class="show-left-wrapper">
+    <h3 class="show-title">Title</h3>
+    <p class="show-paragraph"><%= @book.title %></p>
+    <h3 class="show-title">Description</h3>
+    <p class="show-paragraph"><%= @book.description %></p>
+    <h3 class="show-title">User</h3>
+    <p class="show-paragraph"><%= link_to(@book.user.name, "/users/#{@book.user_id}") %></p>
+    <h3 class="show-title">Borrowed by</h3>
+    <p class="show-paragraph"><%= link_to(@book.borrowed_by, "users/#{@book.user_id}") %></p>
+    <h3 class="show-title">Review</h3>
 
-  <div class="show-paragraph">
-    <% @books.rating.to_i.times do  %>
-      <span class="glyphicon glyphicon-star"></span>
-    <% end %>
-    <% @books.blank_stars.to_i.times do  %>
-      <span class="glyphicon glyphicon-star-empty"></span>
-    <% end %>
-  </div><br>
+    <div class="show-paragraph">
+      <% @book.rating.to_i.times do  %>
+        <span class="glyphicon glyphicon-star"></span>
+      <% end %>
+      <% @book.blank_stars.to_i.times do  %>
+        <span class="glyphicon glyphicon-star-empty"></span>
+      <% end %>
+    </div><br>
 
-  <div class="show-paragraph">
-    <%= button_to "Borrow", {controller: 'books', action: 'rental'}, {method: :post, params: {id: @books.id}, class: "btn btn-primary"}%><br>
   </div>
-</div>
 
+<div class="show-right-wrapper">
+  <h3 class="show-title">Borrowed Date</h3>
+  <p class="show-paragraph"><%= @book.last_log_borrowed_date %></p>
+  <h3 class="show-title">Due Date</h3>
+  <p class="show-paragraph"><%= @book.last_log_due_date %></p>
+  <h3 class="show-title">Returned Date</h3>
+  <p class="show-paragraph"><%= @book.last_log_returned_date %></p>
+  <br>
+  <% if current_user.book_id != @book.id %>
+    <div class="show-paragraph">
+      <%= button_to "Borrow", {controller: 'books', action: 'rental'}, {method: :post, params: {id: @book.id}, class: "btn btn-primary"}%><br>
+    </div>
+  <% end %>
+  <% if current_user.book_id == @book.id %>
+    <div class="show-paragraph">
+      <%= button_to "Return", {controller: 'books', action: 'return'}, {method: :post, params: {id: @book.id}, class: "btn btn-primary"}%><br>
+    </div>
+  <% end %>
+</div>
+</div>
 <div class="white-box-container-link">
-  <% if current_user == @books.user %>
-    <%= link_to("Edit", "/books/#{@books.id}/edit", class: "btn btn-primary") %>
-    <%= link_to("Delete", "/books/#{@books.id}/destroy", {method: "post", class: "btn btn-primary"}) %>
+  <% if current_user == @book.user %>
+    <%= link_to("Edit", "/books/#{@book.id}/edit", class: "btn btn-primary") %>
+    <%= link_to("Delete", "/books/#{@book.id}/destroy", {method: "post", class: "btn btn-primary"}) %>
   <% end %>
 </div>

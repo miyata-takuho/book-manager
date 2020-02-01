@@ -9,13 +9,13 @@ class BooksController < ApplicationController
   end
 
   def new
-    @books = Book.new
+    @book = Book.new
   end
 
   def create
-    @books = Book.new(books_params)
-    @books.save
-    if @books.save
+    @book = Book.new(books_params)
+    @book.save
+    if @book.save
       render "books/show"
     else
       render "books/new"
@@ -23,36 +23,45 @@ class BooksController < ApplicationController
   end
 
   def show
-    @books = Book.find_by(id: params[:id])
+    @book = Book.find_by(id: params[:id])
   end
 
   def update
-    @books = Book.find_by(id: params[:id])
-    @books.title = params[:title]
-    @books.description = params[:description]
-    @books.rating = params[:rating]
-    @books.update(books_params)
+    @book = Book.find_by(id: params[:id])
+    @book.title = params[:title]
+    @book.description = params[:description]
+    @book.rating = params[:rating]
+    @book.update(books_params)
     redirect_to("/books")
   end
 
 
   def edit
-    @books = Book.find_by(id: params[:id])
+    @book = Book.find_by(id: params[:id])
   end
 
   def destroy
-    @books= Book.find_by(id: params[:id])
-    @books.destroy
+    @book= Book.find_by(id: params[:id])
+    @book.destroy
     redirect_to("/books")
   end
 
   def rental
-    @books= Book.find_by(id: params[:id])
-    @books.update!(status: :borrowed)
-    @books.user.update!(status: true, book_id: @books.id)
-    @rental_log = RentalLog.new(status: 1, book_id: @books.id, user_id: @books.user.id)
-    @rental_log.save
-    if @books.save
+    @book= Book.find_by(id: params[:id])
+    @book.user.update!(status: true, book_id: @book.id)
+    @rental_log = @book.start_borrowing(@book.id, @book.user.id)
+    @book.update!(status: :borrowed, rental_logs_id: @book.last_rental_log.id, borrowed_by: current_user.name)
+    if @book.save
+      redirect_to("/books")
+    end
+  end
+
+  def return
+    @book = Book.find_by(id: params[:id])
+    @book.user.update!(status: false, book_id: nil)
+    @rental_log = @book.return_rental_book(@book.id)
+    @book.update!(status: :not_borrowed)
+    if @book.save
       redirect_to("/books")
     end
   end
@@ -60,7 +69,7 @@ class BooksController < ApplicationController
 private
  # Never trust parameters from the scary internet, only allow the white list through.
  def books_params
-   params.require(:book).permit(:title, :description, :user_id, :rating)
+   params.require(:book).permit(:title, :description, :user_id, :rating, :rental_logs_id)
  end
 
 end
