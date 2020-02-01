@@ -25,4 +25,25 @@ class Book < ApplicationRecord
        rental_logs.last
      end
    end
+
+   def last_log_borrowed_date
+     if last_rental_log.present?
+       t = last_rental_log.created_at
+       t.strftime("%F-%a") if t.present?
+     end
+   end
+
+   def last_log_due_date
+     if last_rental_log.present?
+       t = last_rental_log.due
+       t.strftime("%F-%a") if t.present?
+     end
+   end
+
+   def last_log_returned_date
+     if last_rental_log.present?
+       t = last_rental_log.returned_at
+       t.strftime("%F-%a") if t.present?
+     end
+   end
 end

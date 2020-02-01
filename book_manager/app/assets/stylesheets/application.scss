@@ -336,6 +336,18 @@ header {
 }
 
 /* posts/show ================================ */
+.show-left-wrapper {
+  width: 50%;
+  display: inline-block;
+  float: left;
+}
+
+.show-right-wrapper {
+  width: 50%;
+  display: inline-block;
+  float: right;
+}
+
 .show-title {
   margin: 10px 15px;
 }
