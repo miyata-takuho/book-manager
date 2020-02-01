@@ -8,9 +8,11 @@
       <% end %>
       <thead class="posts-table-head">
         <tr>
-          <th class="table-title" width=25%>Title</th>
-          <th class="table-title" width=30%>Borrowed Date</th>
-          <th class="table-title" width=25%>User</th>
+          <th class="table-title" width=20%>Title</th>
+          <th class="table-title" width=13%>Borrowed at</th>
+          <th class="table-title" width=13%>Due Date</th>
+          <th class="table-title" width=13%>Returned at</th>
+          <th class="table-title" width=20%>Borrowed by</th>
           <th class="table-title" width=15%>Review</th>
         </tr>
       </thead>
@@ -18,18 +20,30 @@
     <% @books.each do |book| %>
       <table class="posts-index-item">
         <tbody>
-          <td class="table-data" width=25%>
+          <td class="table-data" width=20%>
             <%= link_to(book.title, "books/#{book.id}") %>
           </td>
-          <td class="table-data" width=30%>
-            <% if book.rental_logs_id.present? %>
-            <% t = @rental_log.created_at %>
+          <td class="table-data" width=13%>
+            <% if book.last_rental_log.present? %>
+              <% t = book.last_rental_log.created_at %>
               <%= t.strftime("%F-%a")%>
             <% end %>
           </td>
-          <td class="table-data" width=25%>
-            <% if book.user.present? %>
-              <%= link_to(book.user.name, "users/#{book.user_id}") %>
+          <td class="table-data" width=13%>
+            <% if book.last_rental_log.present? %>
+              <% t = book.last_rental_log.due %>
+              <%= t.strftime("%F-%a") if t.present? %>
+            <% end %>
+            </td>
+          <td class="table-data" width=13%>
+            <% if book.last_rental_log.present? %>
+              <% t = book.last_rental_log.returned_at %>
+              <%= t.strftime("%F-%a") if t.present?%>
+            <% end %>
+            </td>
+          <td class="table-data" width=20%>
+            <% if book.borrowed_by.present? %>
+              <%= link_to(book.borrowed_by, "users/#{book.user_id}") %>
             <% end %>
           </td>
           <td class="table-data" width=15%>

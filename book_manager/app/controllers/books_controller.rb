@@ -6,17 +6,16 @@ class BooksController < ApplicationController
     @books = Book.all
     @q = Book.ransack(params[:q])
     @books = @q.result(distinct: true)
-    @rental_log = RentalLog.find_by(book_id: @books.ids)
   end
 
   def new
-    @books = Book.new
+    @book = Book.new
   end
 
   def create
-    @books = Book.new(books_params)
-    @books.save
-    if @books.save
+    @book = Book.new(books_params)
+    @book.save
+    if @book.save
       render "books/show"
     else
       render "books/new"
@@ -24,35 +23,45 @@ class BooksController < ApplicationController
   end
 
   def show
-    @books = Book.find_by(id: params[:id])
+    @book = Book.find_by(id: params[:id])
   end
 
   def update
-    @books = Book.find_by(id: params[:id])
-    @books.title = params[:title]
-    @books.description = params[:description]
-    @books.rating = params[:rating]
-    @books.update(books_params)
+    @book = Book.find_by(id: params[:id])
+    @book.title = params[:title]
+    @book.description = params[:description]
+    @book.rating = params[:rating]
+    @book.update(books_params)
     redirect_to("/books")
   end
 
 
   def edit
-    @books = Book.find_by(id: params[:id])
+    @book = Book.find_by(id: params[:id])
   end
 
   def destroy
-    @books= Book.find_by(id: params[:id])
-    @books.destroy
+    @book= Book.find_by(id: params[:id])
+    @book.destroy
     redirect_to("/books")
   end
 
   def rental
-    @books= Book.find_by(id: params[:id])
-    @books.user.update!(status: true, book_id: @books.id)
-    @rental_log = @books.start_borrowing(@books.id, @books.user.id)
-    @books.update!(status: :borrowed, rental_logs_id: @books.rental_log.id)
-    if @books.save
+    @book= Book.find_by(id: params[:id])
+    @book.user.update!(status: true, book_id: @book.id)
+    @rental_log = @book.start_borrowing(@book.id, @book.user.id)
+    @book.update!(status: :borrowed, rental_logs_id: @book.last_rental_log.id, borrowed_by: current_user.name)
+    if @book.save
+      redirect_to("/books")
+    end
+  end
+
+  def return
+    @book = Book.find_by(id: params[:id])
+    @book.user.update!(status: false, book_id: nil)
+    @rental_log = @book.return_rental_book(@book.id)
+    @book.update!(status: :not_borrowed)
+    if @book.save
       redirect_to("/books")
     end
   end
