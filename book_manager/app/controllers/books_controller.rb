@@ -46,6 +46,10 @@ class BooksController < ApplicationController
     redirect_to("/books")
   end
 
+  def return_book
+    @book = Book.find_by(id: params[:id])
+  end
+
   def rental
     @book= Book.find_by(id: params[:id])
     @book.user.update!(status: true, book_id: @book.id)
