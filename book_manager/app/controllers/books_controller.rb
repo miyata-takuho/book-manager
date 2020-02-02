@@ -15,6 +15,9 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(books_params)
     @book.save
+    @book.user.update!(status: true, book_id: @book.id)
+    @rental_log = @book.start_borrowing(@book.id, @book.user.id)
+    @book.update!(status: :borrowed, rental_logs_id: @book.last_rental_log.id, borrowed_by: current_user.name)
     if @book.save
       render "books/show"
     else
