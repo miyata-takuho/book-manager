@@ -39,7 +39,7 @@
   <% end %>
   <% if current_user.book_id == @book.id %>
     <div class="show-paragraph">
-      <%= link_to("Return", "/books/#{@book.id}/return", class: "btn btn-primary")%><br>
+      <%= link_to("Return", "/books/#{@book.id}/return_book", class: "btn btn-primary")%><br>
     </div>
   <% end %>
 </div>

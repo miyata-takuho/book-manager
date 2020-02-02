@@ -1,12 +1,21 @@
 class Book < ApplicationRecord
   belongs_to :user, optional: true
   has_many :rental_logs, dependent: :destroy
-      # attr_accessor :title, :description
   validates :title, {presence: true}
   enum status: [ :not_borrowed, :borrowed ]
 
    def blank_stars
      5 - rating.to_i
+   end
+
+   def average_rating
+     if rating != nil
+       sum = rating + rating_sum
+       average = sum / 2
+       average.to_f
+     else
+       rating_sum
+     end
    end
 
    def start_borrowing(book_id, user_id)
