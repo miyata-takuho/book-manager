@@ -1,11 +1,12 @@
-<h1 class="head-title">Add a new book</h1>
-
+<div class="container">
 <h3 class='page-title'>Add a new book</h3>
 <div class="white-box">
-  <%= form_for :book, url: books_path do |f| %>
+  <%= form_for @book, url: books_path do |f| %>
+    <%= render "books/shared/error_messages", book: f.object %>
     <%= f.label :title %><br>
     <%= f.text_field :title, {class: "form-control"} %><br>
     <%= f.hidden_field :user_id, value: current_user.id%>
     <%= f.submit "Add", class: "btn btn-primary" %>
   <% end %>
+</div>
 </div>

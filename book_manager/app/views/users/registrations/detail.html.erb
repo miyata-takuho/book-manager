@@ -1,18 +1,22 @@
-<h1 class="head-title"> User detail</h1>
-<h3 class='page-title'>Profile</h3>
-<div class="white-box">
-  <div class="profile-picture-box">
-    <!-- picture -->
-  </div>
-  <div class="profile-name">
-    <%= @user.name %>
-  </div>
-  <div class="profile-email">
-    <%= @user.email %>
-  </div>
-  <% if current_user == @user %>
-    <div class="btn btn-primary actions profile-logout">
-      <%= link_to("Logout", "/users/sign_out") %>
-    </div>
+<div class="container">
+  <% if flash[:notice] %>
+    <div class="alert alert-success"><%= flash[:notice] %></div>
   <% end %>
+  <h3 class='page-title'>Profile</h3>
+  <div class="white-box">
+    <div class="profile-picture-box">
+      <!-- picture -->
+    </div>
+    <div class="profile-name">
+      <%= @user.name %>
+    </div>
+    <div class="profile-email">
+      <%= @user.email %>
+    </div>
+    <% if current_user == @user %>
+      <div class="btn btn-primary actions profile-logout">
+        <%= link_to("Logout", "/users/sign_out") %>
+      </div>
+    <% end %>
+  </div>
 </div>
