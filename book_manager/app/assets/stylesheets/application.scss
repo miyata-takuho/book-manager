@@ -83,11 +83,9 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1500px;
   padding-top: 64px;
   margin: 0 auto;
-  padding-left: 15px;
-  padding-right: 15px;
   clear: both;
 }
 
@@ -95,6 +93,10 @@ body {
   font-size: 60px;
   text-align: center;
   padding-top: 70px;
+}
+
+.alert{
+  text-align: center;
 }
 
 /* ヘッダー ================================ */
@@ -441,7 +443,7 @@ header {
   background-color: white;
   overflow: hidden;
   box-shadow: 0 2px 6px #c1ced7;
-  width: 60%;
+  width: 40%;
   height: 100%;
   margin: 10px auto;
   margin-top: 40px;

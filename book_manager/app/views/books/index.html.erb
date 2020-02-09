@@ -1,6 +1,4 @@
 <div class="container">
-  <div class="posts-index">
-    <div class="container">
       <table class="posts-index-item">
         <%= search_form_for @q do |f| %>
           <%= f.search_field :title_cont, class: "search-field", placeholder: "Book Title" %>
@@ -49,5 +47,3 @@
         </table>
       <% end %>
     </div>
-  </div>
-</div>
