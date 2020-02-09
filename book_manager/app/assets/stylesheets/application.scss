@@ -84,7 +84,8 @@ body {
 
 .container {
   max-width: 1200px;
-  margin: 60px auto;
+  padding-top: 64px;
+  margin: 0 auto;
   padding-left: 15px;
   padding-right: 15px;
   clear: both;
@@ -93,7 +94,7 @@ body {
 .page-title {
   font-size: 60px;
   text-align: center;
-  margin: 70px 0 0 0;
+  padding-top: 70px;
 }
 
 /* ヘッダー ================================ */
@@ -103,10 +104,6 @@ header {
   z-index: 1;
   width: 100%;
   background-color: #263844;
-  color: white;
-}
-
-.head-title {
   color: white;
 }
 
@@ -444,8 +441,8 @@ header {
   background-color: white;
   overflow: hidden;
   box-shadow: 0 2px 6px #c1ced7;
-  width: 40%;
-  height: 90%;
+  width: 60%;
+  height: 100%;
   margin: 10px auto;
   margin-top: 40px;
   text-align: left;

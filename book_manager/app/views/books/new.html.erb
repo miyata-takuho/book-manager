@@ -1,5 +1,4 @@
-<h1 class="head-title">Add a new book</h1>
-
+<div class="container">
 <h3 class='page-title'>Add a new book</h3>
 <div class="white-box">
   <%= form_for @book, url: books_path do |f| %>
@@ -9,4 +8,5 @@
     <%= f.hidden_field :user_id, value: current_user.id%>
     <%= f.submit "Add", class: "btn btn-primary" %>
   <% end %>
+</div>
 </div>
