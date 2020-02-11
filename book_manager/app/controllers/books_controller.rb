@@ -18,7 +18,7 @@ class BooksController < ApplicationController
     if @book.save
       @book.user.update!(status: true, book_id: @book.id)
       @rental_log = @book.start_borrowing(@book.id, @book.user.id)
-      @book.update!(status: :borrowed, rental_logs_id: @book.last_rental_log.id, borrowed_by: current_user.name)
+      @book.update!(status: :borrowed, borrowed_by: current_user.name)
       redirect_to("/books/#{@book.id}", notice: "Book was successfully added")
 
     else
@@ -58,7 +58,7 @@ class BooksController < ApplicationController
     @book= Book.find_by(id: params[:id])
     @book.user.update!(status: true, book_id: @book.id)
     @rental_log = @book.start_borrowing(@book.id, @book.user.id)
-    @book.update!(status: :borrowed, rental_logs_id: @book.last_rental_log.id, borrowed_by: current_user.name)
+    @book.update!(status: :borrowed, borrowed_by: current_user.name)
     if @book.save
       redirect_to("/books")
     end
@@ -78,7 +78,7 @@ class BooksController < ApplicationController
 private
  # Never trust parameters from the scary internet, only allow the white list through.
  def books_params
-   params.require(:book).permit(:title, :description, :user_id, :rating, :rating_sum, :rental_logs_id)
+   params.require(:book).permit(:title, :description, :user_id, :rating, :rating_sum)
  end
 
 end

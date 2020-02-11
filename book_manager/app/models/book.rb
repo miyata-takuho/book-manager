@@ -2,6 +2,7 @@ class Book < ApplicationRecord
   belongs_to :user, optional: true
   has_many :rental_logs, dependent: :destroy
   validates :title, {presence: true}
+  validates :user_id, {presence: true}
   enum status: [ :not_borrowed, :borrowed ]
 
    def blank_stars

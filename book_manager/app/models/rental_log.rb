@@ -1,6 +1,8 @@
 class RentalLog < ApplicationRecord
   belongs_to :book, optional: true
   belongs_to :user, optional: true
+  validates :user_id, {presence: true}
+  validates :book_id, {presence: true}
   enum status: [ :before_rental, :first_day, :five_days_left, :a_day_left, :overdue ]
   # after_create :create_due
 
