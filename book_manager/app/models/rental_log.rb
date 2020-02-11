@@ -10,7 +10,6 @@ class RentalLog < ApplicationRecord
   #   RentalLog.due = RentalLog.created_at + 14.days
   # end
 
-
   # def add_job
   #   book.delay(owner: self).do_rental if book.present?
   # end
