@@ -18,7 +18,7 @@ class BooksController < ApplicationController
     if @book.save
       @book.user.update!(status: true, book_id: @book.id)
       @rental_log = @book.start_borrowing(@book.id, @book.user.id)
-      @book.update!(status: :borrowed, borrowed_by: current_user.name)
+      @book.update!(status: :borrowed, borrowed_by: current_user.id)
       redirect_to("/books/#{@book.id}", notice: "Book was successfully added")
 
     else
@@ -58,7 +58,7 @@ class BooksController < ApplicationController
     @book= Book.find_by(id: params[:id])
     @book.user.update!(status: true, book_id: @book.id)
     @rental_log = @book.start_borrowing(@book.id, @book.user.id)
-    @book.update!(status: :borrowed, borrowed_by: current_user.name)
+    @book.update!(status: :borrowed, borrowed_by: current_user.id)
     if @book.save
       redirect_to("/books")
     end

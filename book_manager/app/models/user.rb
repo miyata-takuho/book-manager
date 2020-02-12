@@ -10,4 +10,10 @@ class User < ApplicationRecord
   def rent
     rental_logs.create!(status: :first_day)
   end
+
+  def self.borrowed_user_name(book)
+    borrowed_user_id = book.borrowed_by
+    borrowed_user = User.find_by(id: borrowed_user_id)
+    borrowed_user.name
+  end
 end

@@ -32,7 +32,7 @@
               </td>
             <td class="table-data" width=20%>
               <% if book.borrowed_by.present? %>
-                <%= link_to(book.borrowed_by, "users/#{book.user_id}") %>
+                <%= link_to(User.borrowed_user_name(book), "users/#{book.borrowed_by}") %>
               <% end %>
             </td>
             <td class="table-data" width=15%>
