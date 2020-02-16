@@ -17,8 +17,9 @@ class BooksController < ApplicationController
     @book.save
     if @book.save
       @book.user.update!(status: true, book_id: @book.id)
-      @rental_log = @book.start_borrowing(@book.id, @book.user.id)
-      @book.update!(status: :borrowed, borrowed_by: current_user.id)
+      @current_user = User.find_by(id: current_user.id)
+      @rental_log = @book.start_borrowing(@book.id, @current_user.id)
+      @book.update!(status: :borrowed, borrowing_user: current_user.id, borrowed_by: current_user.id)
       redirect_to("/books/#{@book.id}", notice: "Book was successfully added")
 
     else
@@ -56,11 +57,16 @@ class BooksController < ApplicationController
 
   def rental
     @book= Book.find_by(id: params[:id])
-    @book.user.update!(status: true, book_id: @book.id)
-    @rental_log = @book.start_borrowing(@book.id, @book.user.id)
-    @book.update!(status: :borrowed, borrowed_by: current_user.id)
-    if @book.save
-      redirect_to("/books")
+    if @book.status == "not_borrowed"
+      @book.user.update!(status: true, book_id: @book.id)
+      @current_user = User.find_by(id: current_user.id)
+      @rental_log = @book.start_borrowing(@book.id, @current_user.id)
+      @book.update!(status: :borrowed, borrowing_user: current_user.id, borrowed_by: current_user.id)
+      if @book.save
+        redirect_to("/books")
+      end
+    else
+      redirect_to("/books/#{@book.id}")
     end
   end
 
@@ -69,7 +75,7 @@ class BooksController < ApplicationController
     @book.user.update!(status: false, book_id: nil)
     @rental_log = @book.return_rental_book(@book.id)
     @book.update(books_params)
-    @book.update!(status: :not_borrowed, rating: @book.average_rating)
+    @book.update!(status: :not_borrowed, rating: @book.average_rating, borrowing_user: nil)
     if @book.save
       redirect_to("/books")
     end

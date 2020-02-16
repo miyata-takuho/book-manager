@@ -12,8 +12,8 @@
       <p class="show-paragraph"><%= @book.description %></p>
       <h3 class="show-title">User</h3>
       <p class="show-paragraph"><%= link_to(@book.user.name, "/users/#{@book.user_id}") %></p>
-      <h3 class="show-title">Borrowed by</h3>
-      <p class="show-paragraph"><%= link_to(@book.borrowed_by, "users/#{@book.user_id}") %></p>
+      <h3 class="show-title">Borrowing</h3>
+      <p class="show-paragraph"><%= link_to(@book.borrowing_user, "users/#{@book.user_id}") %></p>
       <h3 class="show-title">Review</h3>
 
       <div class="show-paragraph">
@@ -35,12 +35,12 @@
     <h3 class="show-title">Returned Date</h3>
     <p class="show-paragraph"><%= @book.last_log_returned_date %></p>
     <br>
-    <% if current_user.book_id != @book.id %>
+    <% if @book.status == "not_borrowed"%>
       <div class="show-paragraph">
         <%= button_to "Borrow", {controller: 'books', action: 'rental'}, {method: :post, params: {id: @book.id}, class: "btn btn-primary"}%><br>
       </div>
     <% end %>
-    <% if current_user.book_id == @book.id %>
+    <% if current_user.id == @book.borrowing_user %>
       <div class="show-paragraph">
         <%= link_to("Return", "/books/#{@book.id}/return_book", class: "btn btn-primary")%><br>
       </div>

@@ -19,14 +19,14 @@ class Book < ApplicationRecord
      end
    end
 
-   def start_borrowing(book_id, user_id)
-     RentalLog.create!(status: :first_day, book_id: book_id, user_id: user_id, due: Time.now + 14.days)
+   def start_borrowing(book_id, current_user_id)
+     RentalLog.create!(status: :borrowing, book_id: book_id, user_id: current_user_id, due: Time.now + 14.days)
    end
 
    def return_rental_book(book_id)
      book = Book.find_by(id: book_id)
      return_book = RentalLog.find_by(book_id: book_id, id: book.last_rental_log.id)
-     return_book.update!(returned_at: Time.now, status: :before_rental)
+     return_book.update!(returned_at: Time.now, status: :available)
      return_book.save
    end
 
