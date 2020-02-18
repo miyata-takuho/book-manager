@@ -24,7 +24,7 @@ class RentalLog < ApplicationRecord
     unique_user_ids = logs_user_ids.uniq
   end
 
-  def self.borrowed_user_name(book_id)
+  def self.all_borrowed_user_name(book_id)
     unique_user_ids = RentalLog.unique_user_array(book_id)
     logs_user_name = unique_user_ids.map do |unipue_user_id|
       same_user = User.where(id: unipue_user_id)
@@ -37,12 +37,16 @@ class RentalLog < ApplicationRecord
     unique_user_array.count
   end
 
-  def self.two_borrowed_user_name(book_id)
+  def self.borrowed_user_name(book_id)
     unique_user_ids = RentalLog.unique_user_array(book_id)
-    logs_user_name = unique_user_ids.map do |unipue_user_id|
-      same_user = User.where(id: unipue_user_id)
-      same_user.map{ |user_ary| user_ary.name}
-      #untilを使って二つだけ返すようにする
+    if unique_user_ids.count > 2
+      two_users = unique_user_ids[0..1]
+      logs_user_name = two_users.map do |unipue_user_id|
+        same_user = User.where(id: unipue_user_id)
+        same_user.map{ |user_ary| user_ary.name}
+      end.join(', ')
+    else
+      RentalLog.all_borrowed_user_name(book_id)
+    end
   end
-
 end

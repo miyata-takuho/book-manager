@@ -38,9 +38,7 @@
             <td class="table-data" width=20%>
               <% if book.borrowed_by.present? %>
                 <%= RentalLog.borrowed_user_name(book.id) %>
-                <% if RentalLog.borrowed_user_size(book.id) == 1 %>
-                  <%= link_to("detail", "books/#{book.id}") %>
-                <% else %>
+                <% if RentalLog.borrowed_user_size(book.id) > 1 %>
                   <%= link_to("more...", "books/#{book.id}") %>
                 <% end %>
               <% end %>
