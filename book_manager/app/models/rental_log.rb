@@ -15,7 +15,8 @@ class RentalLog < ApplicationRecord
   # end
 
   def self.same_book_logs(book_id)
-    RentalLog.where(book_id: book_id)
+    log_array = RentalLog.where(book_id: book_id)
+    log_array.reverse
   end
 
   def self.unique_user_array(book_id)

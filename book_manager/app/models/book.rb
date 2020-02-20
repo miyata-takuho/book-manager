@@ -56,4 +56,9 @@ class Book < ApplicationRecord
        t.strftime("%F-%a") if t.present?
      end
    end
+
+   def borrowing_user_name
+     borrow_user = User.find_by(id: borrowing_user)
+     borrow_user.name
+   end
 end

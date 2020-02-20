@@ -8,13 +8,17 @@
     <div class="show-left-wrapper">
       <h3 class="show-title">Title</h3>
       <p class="show-paragraph"><%= @book.title %></p>
-      <h3 class="show-title">Description</h3>
-      <p class="show-paragraph"><%= @book.description %></p>
-      <h3 class="show-title">User</h3>
-      <p class="show-paragraph"><%= link_to(@book.user.name, "/users/#{@book.user_id}") %></p>
+      <!-- <h3 class="show-title">Description</h3>
+      <p class="show-paragraph"><%#= @book.description %></p> -->
+      <!-- <h3 class="show-title">User</h3>
+      <p class="show-paragraph"><%#= link_to(@book.user.name, "/users/#{@book.user_id}") %></p> -->
       <h3 class="show-title">Borrowing</h3>
-      <p class="show-paragraph"><%= link_to(@book.borrowing_user, "users/#{@book.user_id}") %></p>
-      <h3 class="show-title">Review</h3>
+      <p class="show-paragraph">
+        <% if @book.borrowing_user.present? %>
+          <%= link_to(@book.borrowing_user_name, "/users/#{@book.borrowing_user}") %>
+        <% end %>
+      </p>
+      <h3 class="show-title">Total Review</h3>
 
       <div class="show-paragraph">
         <% @book.rating.to_i.times do  %>
@@ -52,5 +56,34 @@
       <%= link_to("Edit", "/books/#{@book.id}/edit", class: "btn btn-primary") %>
       <%= link_to("Delete", "/books/#{@book.id}/destroy", {method: "post", class: "btn btn-primary"}) %>
     <% end %>
+  </div>
+
+  <h3 class='sub-title'>History</h3>
+
+  <div class="show-box">
+    <table class="show-box-th">
+      <thead class="posts-table-head">
+        <th>Borrowed User</th>
+        <th>Borrowed Date</th>
+        <th>Due Date</th>
+        <th>Returned Date</th>
+        <th>Comment</th>
+        <th>Review</th>
+      </thead>
+      <% book_logs = RentalLog.same_book_logs(@book.id) %>
+        <% book_logs.map do |book_log| %>
+          <table class="show-box-th">
+            <% logs_users = User.where(id: book_log.user_id) %>
+            <% logs_users.each do |logs_user| %>
+              <td class='show-td' width=25%>
+                <%= logs_user.name %>
+              </td>
+              <td class='show-td' width=25%>
+                <%#= logs_user.name %>
+              </td>
+            <% end %>
+          </table>
+        <% end %>
+    </table>
   </div>
 </div>
