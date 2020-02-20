@@ -73,8 +73,8 @@ class BooksController < ApplicationController
   def return
     @book = Book.find_by(id: params[:id])
     @book.user.update!(status: false, book_id: nil)
-    @rental_log = @book.return_rental_book(@book.id)
     @book.update(books_params)
+    @rental_log = @book.return_rental_book(@book.id)
     @book.update!(status: :not_borrowed, rating: @book.average_rating, borrowing_user: nil)
     if @book.save
       redirect_to("/books")

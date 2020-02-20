@@ -26,7 +26,7 @@ class Book < ApplicationRecord
    def return_rental_book(book_id)
      book = Book.find_by(id: book_id)
      return_book = RentalLog.find_by(book_id: book_id, id: book.last_rental_log.id)
-     return_book.update!(returned_at: Time.now, status: :available)
+     return_book.update!(returned_at: Time.now, status: :available, comment: book.description, rating: book.rating_sum)
      return_book.save
    end
 

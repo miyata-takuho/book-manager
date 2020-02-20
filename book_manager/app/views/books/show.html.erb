@@ -63,25 +63,50 @@
   <div class="show-box">
     <table class="show-box-th">
       <thead class="posts-table-head">
-        <th>Borrowed User</th>
-        <th>Borrowed Date</th>
-        <th>Due Date</th>
-        <th>Returned Date</th>
-        <th>Comment</th>
-        <th>Review</th>
+        <th width=15%>Borrowed User</th>
+        <th width=15%>Borrowed Date</th>
+        <th width=15%>Due Date</th>
+        <th width=15%>Returned Date</th>
+        <th width=15%>Comment</th>
+        <th width=15%>Review</th>
       </thead>
       <% book_logs = RentalLog.same_book_logs(@book.id) %>
         <% book_logs.map do |book_log| %>
           <table class="show-box-th">
             <% logs_users = User.where(id: book_log.user_id) %>
             <% logs_users.each do |logs_user| %>
-              <td class='show-td' width=25%>
+              <td class='show-td' width=15%>
                 <%= logs_user.name %>
               </td>
-              <td class='show-td' width=25%>
-                <%#= logs_user.name %>
-              </td>
             <% end %>
+            <td class='show-td' width=15%>
+              <%= book_log.borrowed_date%>
+            </td>
+            <td class='show-td' width=15%>
+              <%= book_log.due_date%>
+            </td>
+            <td class='show-td' width=15%>
+              <%= book_log.return_date%>
+            </td>
+            <td class='show-td' width=15%>
+              <% if book_log.comment.present? %>
+                <%= book_log.comment%>
+              <% else %>
+                <p>No Comment</p>
+              <% end %>
+            </td>
+            <td class='show-td' width=15%>
+              <% if book_log.rating.present? %>
+                <% book_log.rating.to_i.times do  %>
+                  <span class="glyphicon glyphicon-star"></span>
+                <% end %>
+                <% book_log.blank_stars.to_i.times do  %>
+                  <span class="glyphicon glyphicon-star-empty"></span>
+                <% end %>
+              <% else %>
+                <p>No Review</p>
+              <% end %>
+            </td>
           </table>
         <% end %>
     </table>

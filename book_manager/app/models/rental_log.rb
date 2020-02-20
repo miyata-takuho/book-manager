@@ -50,4 +50,23 @@ class RentalLog < ApplicationRecord
       RentalLog.all_borrowed_user_name(book_id)
     end
   end
+
+  def borrowed_date
+    t = created_at
+    t.strftime("%F-%a") if t.present?
+  end
+
+  def due_date
+    t = due
+    t.strftime("%F-%a") if t.present?
+  end
+
+  def return_date
+    t = returned_at
+    t.strftime("%F-%a") if t.present?
+  end
+
+  def blank_stars
+    5 - rating.to_i
+  end
 end
