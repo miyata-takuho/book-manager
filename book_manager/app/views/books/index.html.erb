@@ -22,7 +22,7 @@
               <%= link_to(book.title, "books/#{book.id}") %>
             </td>
             <td class="table-data" width=13%>
-              <%= book.last_rental_log.status %>
+              <%= book.last_rental_log.status if book.last_rental_log.present? %>
             </td>
             <td class="table-data" width=13%>
               <%= book.last_log_borrowed_date %>
