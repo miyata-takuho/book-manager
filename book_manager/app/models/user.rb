@@ -8,11 +8,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   def rent
-    rental_logs.create!(status: :first_day)
+    rental_logs.create!(status: :borrowing)
   end
 
   def self.borrowed_user_name(book)
-    borrowed_user_id = book.borrowed_by
+    borrowed_user_id = book.borrowing_user
     borrowed_user = User.find_by(id: borrowed_user_id)
     borrowed_user.name
   end
