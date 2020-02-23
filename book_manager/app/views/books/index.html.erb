@@ -7,8 +7,8 @@
         <thead class="posts-table-head">
           <tr>
             <th class="table-title" width=20%>Title</th>
-            <th class="table-title" width=13%>Borrowed at</th>
             <th class="table-title" width=13%>Status</th>
+            <th class="table-title" width=13%>Borrowed at</th>
             <th class="table-title" width=13%>Returned at</th>
             <th class="table-title" width=15%>Borrowing</th>
             <th class="table-title" width=20%>Borrowed by</th>
@@ -22,14 +22,14 @@
               <%= link_to(book.title, "books/#{book.id}") %>
             </td>
             <td class="table-data" width=13%>
-                <%= book.last_log_borrowed_date %>
+              <%= book.last_rental_log.status %>
             </td>
             <td class="table-data" width=13%>
-                <%= book.last_rental_log.status %>
-              </td>
+              <%= book.last_log_borrowed_date %>
+            </td>
             <td class="table-data" width=13%>
-                <%= book.last_log_returned_date %>
-              </td>
+              <%= book.last_log_returned_date %>
+            </td>
             <td class="table-data" width=15%>
               <% if book.borrowing_user.present? %>
                 <%= link_to(User.borrowed_user_name(book), "users/#{book.borrowing_user}") %>
