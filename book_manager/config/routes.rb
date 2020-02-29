@@ -25,4 +25,8 @@ Rails.application.routes.draw do
    post "books/:id/update", :to => "books#update"
    resources :books
    resources :rental_logs
+
+   if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end
