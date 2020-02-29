@@ -12,7 +12,6 @@ class User < ApplicationRecord
     UserMailer.delay.welcome_email(user_id)
   end
 
-
   def rent
     rental_logs.create!(status: :borrowing)
   end

@@ -4,15 +4,11 @@ class RentalLog < ApplicationRecord
   validates :user_id, {presence: true}
   validates :book_id, {presence: true}
   enum status: [ :available, :borrowing, :a_day_left, :overdue ]
-  # after_create :create_due
+  after_create :start_borrowing_mail
 
-  # def initialize
-  #   RentalLog.due = RentalLog.created_at + 14.days
-  # end
-
-  # def add_job
-  #   book.delay(owner: self).do_rental if book.present?
-  # end
+  def start_borrowing_mail
+    UserMailer.delay.start_borrowing_mail(user_id, book_id, self)
+  end
 
   def self.same_book_logs(book_id)
     log_array = RentalLog.where(book_id: book_id)
