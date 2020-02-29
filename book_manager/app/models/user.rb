@@ -8,12 +8,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   after_create :welcome_email
 
-  # def welcome_email
-  #   UserMailer.welcome_email(self).deliver
-  # end
-
   def welcome_email
-    UserMailer.welcome_email(user_id).deliver
+    UserMailer.delay.welcome_email(user_id)
   end
 
 

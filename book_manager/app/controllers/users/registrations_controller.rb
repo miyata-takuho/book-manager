@@ -11,19 +11,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-
-    @user = User.new(params[:configure_sign_up_params])
-    @user.save
-    # respond_to do |format|
-      if @user.save
-        UserMailer.with(user: @user).welcome_email.deliver_later
-        redirect_to @user, notice: 'User was successfully created.' and return
-        # format.json { render json: @user, status: :created, location: @user and return }
-      else
-        # render action: 'new' and return
-        # format.json { render json: @user.errors, status: :unprocessable_entity and return}
-      end
-    # end
     super
   end
 
@@ -59,7 +46,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    "/users/#{current_user.id}" and return
+    "/users/#{current_user.id}"
   end
 
   # If you have extra params to permit, append them to the sanitizer.

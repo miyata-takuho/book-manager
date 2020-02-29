@@ -7,9 +7,4 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Welcome to book manager')
   end
 
-  # def welcome_send(user)
-  #   @user = user
-  #   mail to: user.email, subject: "Welcome to book manager", from: "test@example.com"
-  # end
-
 end

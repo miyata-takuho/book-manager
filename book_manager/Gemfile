@@ -46,6 +46,10 @@ gem 'pry', '~> 0.12.2'
 
 gem 'delayed_job_active_record'
 
+gem 'foreman'
+
+gem 'thin'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
