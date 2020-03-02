@@ -8,6 +8,7 @@ class RentalLog < ApplicationRecord
 
   def start_borrowing_mail
     UserMailer.delay.start_borrowing_mail(user_id, book_id, self)
+    ReminderJob.set(wait: 1.minute).perform_later(user_id, book_id, self)
   end
 
   def self.same_book_logs(book_id)
