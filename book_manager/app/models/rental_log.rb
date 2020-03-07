@@ -3,12 +3,27 @@ class RentalLog < ApplicationRecord
   belongs_to :user, optional: true
   validates :user_id, {presence: true}
   validates :book_id, {presence: true}
-  enum status: [ :available, :borrowing, :a_day_left, :overdue ]
+  enum status: [ :available, :borrowing, :a_day_left, :due_date, :overdue ]
   after_create :start_borrowing_mail
 
   def start_borrowing_mail
     UserMailer.delay.start_borrowing_mail(user_id, book_id, self)
-    ReminderJob.set(wait: 1.minute).perform_later(user_id, book_id, self)
+    # ReminderJob.set(wait: 1.minute).perform_later(user_id, book_id, self)
+  end
+
+  def self.update_status
+    borrowed_logs = RentalLog.all
+    borrowed_logs.each do |borrowed_log|
+      if borrowed_log.status == 'borrowing' && borrowed_log.a_day_before_due == borrowed_log.today
+        borrowed_log.update!(status: :a_day_left)
+        UserMailer.delay.one_day_left_notice(borrowed_log.user_id, borrowed_log.book_id, borrowed_log)
+      elsif borrowed_log.status == 'a_day_left' && borrowed_log.due_date == borrowed_log.today
+        borrowed_log.update!(status: :due_date)
+        UserMailer.delay.due_date_notice(borrowed_log.user_id, borrowed_log.book_id, borrowed_log)
+      elsif borrowed_log.status == 'due_date' && borrowed_log.due_date < borrowed_log.today
+        borrowed_log.update!(status: :overdue)
+      end
+    end
   end
 
   def self.same_book_logs(book_id)
@@ -48,8 +63,18 @@ class RentalLog < ApplicationRecord
     end
   end
 
+  def today
+    t = Time.now
+    t.strftime("%F-%a")
+  end
+
   def borrowed_date
     t = created_at
+    t.strftime("%F-%a") if t.present?
+  end
+
+  def a_day_before_due
+    t = due - 1.day
     t.strftime("%F-%a") if t.present?
   end
 
