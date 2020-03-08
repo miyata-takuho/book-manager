@@ -7,6 +7,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   after_create :welcome_email
+  has_paper_trail
 
   def welcome_email
     UserMailer.delay.welcome_email(user_id)

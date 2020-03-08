@@ -52,6 +52,8 @@ gem 'thin'
 
 gem 'whenever', require: false
 
+gem 'paper_trail'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
