@@ -3,16 +3,31 @@ class RentalLog < ApplicationRecord
   belongs_to :user, optional: true
   validates :user_id, {presence: true}
   validates :book_id, {presence: true}
-  enum status: [ :available, :borrowing, :a_day_left, :overdue ]
-  # after_create :create_due
+  enum status: [ :available, :borrowing, :a_day_left, :due_date, :overdue, :three_days_from_due ]
+  after_create :start_borrowing_mail
 
-  # def initialize
-  #   RentalLog.due = RentalLog.created_at + 14.days
-  # end
+  def start_borrowing_mail
+    UserMailer.delay.start_borrowing_mail(user_id, book_id, self)
+  end
 
-  # def add_job
-  #   book.delay(owner: self).do_rental if book.present?
-  # end
+  def self.update_status
+    borrowed_logs = RentalLog.all
+    borrowed_logs.each do |borrowed_log|
+      if borrowed_log.status == 'borrowing' && borrowed_log.a_day_before_due == borrowed_log.today
+        borrowed_log.update!(status: :a_day_left)
+        UserMailer.delay.one_day_left_notice(borrowed_log.user_id, borrowed_log.book_id, borrowed_log)
+      elsif borrowed_log.status == 'a_day_left' && borrowed_log.due_date == borrowed_log.today
+        borrowed_log.update!(status: :due_date)
+        UserMailer.delay.due_date_notice(borrowed_log.user_id, borrowed_log.book_id, borrowed_log)
+      elsif borrowed_log.status == 'due_date' && borrowed_log.due_date < borrowed_log.today
+        borrowed_log.update!(status: :overdue)
+        UserMailer.delay.please_return_notice(borrowed_log.user_id, borrowed_log.book_id, borrowed_log)
+      elsif borrowed_log.status == 'overdue' && borrowed_log.overdue_date == borrowed_log.today
+        borrowed_log.update!(status: :three_days_from_due)
+        UserMailer.delay.please_return_notice(borrowed_log.user_id, borrowed_log.book_id, borrowed_log)
+      end
+    end
+  end
 
   def self.same_book_logs(book_id)
     log_array = RentalLog.where(book_id: book_id)
@@ -51,8 +66,23 @@ class RentalLog < ApplicationRecord
     end
   end
 
+  def overdue_date
+    t = due + 3.days
+    t.strftime("%F-%a")
+  end
+
+  def today
+    t = Time.now
+    t.strftime("%F-%a")
+  end
+
   def borrowed_date
     t = created_at
+    t.strftime("%F-%a") if t.present?
+  end
+
+  def a_day_before_due
+    t = due - 1.day
     t.strftime("%F-%a") if t.present?
   end
 

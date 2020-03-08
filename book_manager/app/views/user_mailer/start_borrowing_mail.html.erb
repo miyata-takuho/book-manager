@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thank you for borrowing <%= @book.title %>, <%= @user.name %></h1>
+    <p>
+      You have borrowed <%= @book.title %> on <%= @rental_log.borrowed_date %>.
+      The due date is: <%= @rental_log.due_date %>.<br>
+    </p>
+    <p>Thanks for borrwoing and have a great day!</p>
+  </body>
+</html>
