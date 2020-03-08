@@ -20,15 +20,6 @@
 # Learn more: http://github.com/javan/whenever
 set :output, 'log/crontab.log'
 set :environment, :development
-every 1.minute do
+every 1.day, at: '8:30' do
   runner "RentalLog.update_status"
 end
-
-
-# every 1.day, at: '8:30' do
-#   runner RentalLog.update_status
-# end
-#
-# every 1.day, at: '9:00' do
-#   runner ReminderJob.perform_later(user_id, book_id, self)
-# end

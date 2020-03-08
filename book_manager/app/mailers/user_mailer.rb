@@ -27,4 +27,11 @@ class UserMailer < ApplicationMailer
     @rental_log = rental_log
     mail(to: @user.email, subject: 'You need to return the book')
   end
+
+  def please_return_notice(user_id, book_id, rental_log)
+    @user = User.find(user_id)
+    @book = Book.find(book_id)
+    @rental_log = rental_log
+    mail(to: @user.email, subject: 'Please return your borrowing book')
+  end
 end
