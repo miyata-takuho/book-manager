@@ -4,6 +4,7 @@ class Book < ApplicationRecord
   validates :title, {presence: true}
   validates :user_id, {presence: true}
   enum status: [ :not_borrowed, :borrowed ]
+  has_paper_trail
 
    def blank_stars
      5 - rating.to_i

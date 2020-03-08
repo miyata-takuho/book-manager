@@ -5,6 +5,7 @@ class RentalLog < ApplicationRecord
   validates :book_id, {presence: true}
   enum status: [ :available, :borrowing, :a_day_left, :due_date, :overdue, :three_days_from_due ]
   after_create :start_borrowing_mail
+  has_paper_trail
 
   def start_borrowing_mail
     UserMailer.delay.start_borrowing_mail(user_id, book_id, self)
